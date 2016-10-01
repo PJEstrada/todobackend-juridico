@@ -18,7 +18,7 @@ builder:
   volumes_from:
     - cache
   entrypoint: "entrypoint.sh"
-command: ["pip", "wheel", "--no-index", "-f /build", "."]
+  command: ["pip", "wheel", "--no-index", "-f /build", "."]
    
 agent:
   image: pjestrada/ansible
