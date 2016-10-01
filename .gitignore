@@ -1,4 +1,3 @@
-
 #Ignore virtual enviroment
 venv
 
@@ -8,3 +7,8 @@ venv
 #Ignore SQLite database files
 
 *.sqlite3
+
+
+# Ignore build and test artifacts
+target
+reports

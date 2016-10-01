@@ -1,36 +1,33 @@
 FROM pjestrada/todobackend-base:latest
 MAINTAINER Pablo Estrada <pjestradac@gmail.com>
 
-
 # Install dev/build dependencies
 RUN apt-get update && \
-	apt-get install -qy python-dev libmysqlclient-dev
+    apt-get install -qy python-dev libmysqlclient-dev
 
-
-# Activate virtual env and install wheel support
+# Activate virtual environment and install wheel support
 RUN . /appenv/bin/activate && \
-	pip install wheel --upgrade
+    pip install wheel --upgrade
 
-
-# PIP enviroment variables (NOTE: Must be set after installing wheel)
-
+# PIP environment variables (NOTE: must be set after installing wheel)
 ENV WHEELHOUSE=/wheelhouse PIP_WHEEL_DIR=/wheelhouse PIP_FIND_LINKS=/wheelhouse XDG_CACHE_HOME=/cache
 
-# OUTPUT: Build artifacts (Wheels) are output here
+# OUTPUT: Build artefacts (Wheels) are output here
 VOLUME /wheelhouse
+
+# OUTPUT: Build cache
+VOLUME /build
 
 # OUTPUT: Test reports are output here
 VOLUME /reports
-VOLUME /build
 
-# ADD entrypoint script
+# Add test entrypoint script
 COPY scripts/test.sh /usr/local/bin/test.sh
 RUN chmod +x /usr/local/bin/test.sh
 
-
-#Set defaults for entrypoint and command string
+# Set defaults for entrypoint and command string
 ENTRYPOINT ["test.sh"]
-CMD ["python","manage.py","test","--noinput"]
+CMD ["python", "manage.py", "test", "--noinput"]
 
 # Add application source
 COPY src /application
