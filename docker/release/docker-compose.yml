@@ -26,7 +26,7 @@ test:
     URL: http://nginx:8000/todos
     JUNIT_REPORT_PATH: /reports/acceptance.xml
     JUNIT_REPORT_STACK: 1
-    command: --reporter mocha-jenkins-reporter
+  command: --reporter mocha-jenkins-reporter
 
 nginx:
   build: .
@@ -62,3 +62,4 @@ agent:
   environment:
     PROBE_HOST: "db"
     PROBE_PORT: "3306"
+  command: ["probe.yml"]
