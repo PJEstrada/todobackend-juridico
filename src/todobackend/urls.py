@@ -16,8 +16,29 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from rest_framework import routers, serializers, viewsets
+from judicial.models import AsesorJuridico
+
+class AsesorSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = AsesorJuridico
+        fields = ( 'nombre', 'key' )
+
+class AsesorViewSet(viewsets.ModelViewSet):
+    queryset = AsesorJuridico.objects.all()
+    serializer_class = AsesorSerializer
+
+#Rutas definidas
+router = routers.DefaultRouter()
+router.register(r'users', AsesorViewSet)
+
+#asesor_view = AsesorViewSet.as_view({'get':'retrieve'})
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('todo.urls')),
+    url(r'^', include(router.urls)), #prueba de routers, contiene todas las rutas predefinidas
+    #url(r'^', include('todo.urls')),
+    #url(r'^api-auth/', AsesorViewSet),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
 ]
