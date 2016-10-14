@@ -18,7 +18,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers, serializers, viewsets
 from judicial.models import AsesorJuridico
-
+from judicial import views
 class AsesorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AsesorJuridico
@@ -31,11 +31,13 @@ class AsesorViewSet(viewsets.ModelViewSet):
 #Rutas definidas
 router = routers.DefaultRouter()
 router.register(r'users', AsesorViewSet)
-
+#router.register(r'users/(?P<id>[0-9]+)/$', views.user_detail)
+#router.register(r'^users-view/$', views.snippet_list)
 #asesor_view = AsesorViewSet.as_view({'get':'retrieve'})
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^users-view/$', views.snippet_list),
     url(r'^', include(router.urls)), #prueba de routers, contiene todas las rutas predefinidas
     #url(r'^', include('todo.urls')),
     #url(r'^api-auth/', AsesorViewSet),
