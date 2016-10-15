@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# Create your models here.2asd
+# Create your models here.2asdg
 
 class AsesorJuridico(AbstractUser):
 	nombre = models.CharField(max_length=50)
