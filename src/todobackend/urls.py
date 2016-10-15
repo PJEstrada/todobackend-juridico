@@ -36,7 +36,6 @@ router.register(r'users', AsesorViewSet)
 #asesor_view = AsesorViewSet.as_view({'get':'retrieve'})
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
     url(r'^users-view/$', views.snippet_list),
     url(r'^', include(router.urls)), #prueba de routers, contiene todas las rutas predefinidas
     url(r'^', include('todo.urls')),
