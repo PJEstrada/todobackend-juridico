@@ -1,5 +1,6 @@
 #Ignore virtual enviroment
 venv
+ven
 
 #Ignore compler python files
 *.pyc
