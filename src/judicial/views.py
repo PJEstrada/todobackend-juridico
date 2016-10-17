@@ -10,6 +10,7 @@ from rest_framework.parsers import JSONParser
 from judicial.models import AsesorJuridico
 from judicial.serializer import AsesorSerializer
 
+# cambio
 class JSONResponse(HttpResponse):
     """
     """
