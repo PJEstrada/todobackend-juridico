@@ -26,4 +26,22 @@ def snippet_list(request):
         return JSONResponse(serializer.data)
 
 
-#hola muchis 
+#TODO
+#Demas funciones requeridas por el API SIT de microservicios
+#La verificacion se hara mediante comunicacion con el Subdominio Correspondiente!
+
+#def dictamen_dado_expediente():
+
+#def opinion_dado_expediente():
+
+#def crear_opinion():
+
+#def crear_dictamen():
+
+#def emitir_providencia():
+
+#def update_estado_expediente():
+
+#def crear_expediente():
+
+#def obtener_expediente():
