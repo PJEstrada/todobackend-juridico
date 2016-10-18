@@ -24,3 +24,6 @@ def snippet_list(request):
         snippets = AsesorJuridico.objects.all()
         serializer = AsesorSerializer(snippets, many=True)
         return JSONResponse(serializer.data)
+
+
+#hola muchis 
