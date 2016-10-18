@@ -21,11 +21,10 @@ node {
 		 }
 	}
 	finally{
-		stage 'Collect test reports'
-		step([$class: 'JUnitResultArchiver', testResults: '**/reports/*.xml'])
-
 		stage 'Clean up'
 		sh 'make clean'
+		stage 'Collect test reports'
+		step([$class: 'JUnitResultArchiver', testResults: '**/reports/*.xml'])
 		sh 'make logout'
 	}
 }
