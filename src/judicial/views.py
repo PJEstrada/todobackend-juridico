@@ -10,7 +10,7 @@ from rest_framework.parsers import JSONParser
 from judicial.models import AsesorJuridico
 from judicial.serializer import AsesorSerializer
 
-#2aaa  cambio 589
+# 52aaa  cambio 589
 class JSONResponse(HttpResponse):
     """
     """
