@@ -19,6 +19,16 @@ node {
 			sh 'make login'
 			sh 'make publish'
 		 }
+		 stage "Deploy Release"
+		 sh "printf \$(git rev-parse --short HEAD) > tag.tmp"
+		 def imageTag = readFile 'tag.tmp'
+		 build job: DEPLOY_JOB, parameters:[{
+		 	$class: 'StringParameterValue',
+		 	name: 'IMAGE_TAG'
+		 	value: 'pjestrada/todobackend:' + imageTag
+
+		 }]
+
 	}
 	finally{
 		stage 'Clean up'
