@@ -28,7 +28,7 @@ class AsesorViewSet(viewsets.ModelViewSet):
     queryset = AsesorJuridico.objects.all()
     serializer_class = AsesorSerializer
 
-#Rutas definidas
+#Rutas definidass
 router = routers.DefaultRouter()
 router.register(r'users', AsesorViewSet)
 #router.register(r'users/(?P<id>[0-9]+)/$', views.user_detail)
