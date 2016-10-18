@@ -37,6 +37,8 @@ router.register(r'users', AsesorViewSet)
 
 urlpatterns = [
     url(r'^users-view/$', views.snippet_list),
+    url(r'^dictamen/(?P<id>[0-9]+)/$', views.dictamen_dado_expediente),
+    #url(r'^', include(judicial.urls))
     url(r'^', include(router.urls)), #prueba de routers, contiene todas las rutas predefinidas
     url(r'^', include('todo.urls')),
     #url(r'^api-auth/', AsesorViewSet),

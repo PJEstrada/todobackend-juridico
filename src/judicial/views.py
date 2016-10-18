@@ -7,8 +7,8 @@ from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from judicial.models import AsesorJuridico
-from judicial.serializer import AsesorSerializer
+from judicial.models import *
+from judicial.serializer import *
 
 # cambio asd658886645455552aaa  cambio 589
 class JSONResponse(HttpResponse):
@@ -30,7 +30,14 @@ def snippet_list(request):
 #Demas funciones requeridas por el API SIT de microservicios
 #La verificacion se hara mediante comunicacion con el Subdominio Correspondiente!
 
-#def dictamen_dado_expediente():
+def dictamen_dado_expediente(request, id):
+    if request.method == 'GET':
+        id_expediente = id
+        #VERIFICAR ID VALIDO ANTES DE QUERY
+        print(id_expediente)
+        dictamen = Dictamen.objects.get(expediente_id=id_expediente)
+        serializer = DictamenSerializer(dictamen, many=False)
+        return JSONResponse(serializer.data)
 
 #def opinion_dado_expediente():
 
