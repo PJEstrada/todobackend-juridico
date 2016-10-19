@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
+from rest_framework.response import Response
+from rest_framework import status
 
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
@@ -19,7 +22,14 @@ class JSONResponse(HttpResponse):
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
 
-def snippet_list(request):
+#class AsesorViewSet(viewsets.ModelViewSet):
+#    queryset = AsesorJuridico.objects.all()
+#    serializer_class = AsesorSerializer
+
+#class AsesorViewSet2(viewsets.ModelViewSet):
+
+
+def asesores(request):
     if request.method == 'GET':
         snippets = AsesorJuridico.objects.all()
         serializer = AsesorSerializer(snippets, many=True)
@@ -30,25 +40,84 @@ def snippet_list(request):
 #Demas funciones requeridas por el API SIT de microservicios
 #La verificacion se hara mediante comunicacion con el Subdominio Correspondiente!
 
+#READ
 def dictamen_dado_expediente(request, id):
     if request.method == 'GET':
         id_expediente = id
-        #VERIFICAR ID VALIDO ANTES DE QUERY
-        print(id_expediente)
-        dictamen = Dictamen.objects.get(expediente_id=id_expediente)
-        serializer = DictamenSerializer(dictamen, many=False)
-        return JSONResponse(serializer.data)
+        try:
+            dictamen = Dictamen.objects.get(expediente_id=id_expediente)
+            serializer = DictamenSerializer(dictamen, many=False)
+            return JSONResponse(serializer.data)
+        except ObjectDoesNotExist as e:
+            #No existe el dictamen
+            return JSONResponse([])
 
-#def opinion_dado_expediente():
+def opinion_dado_expediente(request, id):
+    if request.method == 'GET':
+        id_expediente = id
+        try:
+            opinion = OpinionJuridica.objects.get(expediente_id=id_expediente)
+            serializer = OpinionSerializer(opinion, many=False)
+            return JSONResponse(serializer.data)
+        except ObjectDoesNotExist as e:
+            #No existe el dictamen
+            return JSONResponse([])
 
-#def crear_opinion():
+def obtener_expediente(request, id):
+    if request.method == 'GET':
+        id_expediente = id
+        try:
+            opinion = ExpedienteJuridico.objects.get(id=id_expediente)
+            serializer = ExpedienteSerializer(opinion, many=False)
+            return JSONResponse(serializer.data)
+        except ObjectDoesNotExist as e:
+            #No existe el dictamen
+            return JSONResponse([])
 
-#def crear_dictamen():
+#CREATE
+def crear_opinion(request):
+    if request.method == 'POST':
+        serializer = OpinionSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()   #gaurdar la opinion
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
 
-#def emitir_providencia():
+def crear_dictamen(request):
+    if request.method == 'POST':
+        serializer = DictamenSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()   #gaurdar el dicatamen
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
 
-#def update_estado_expediente():
+def emitir_providencia():
+    if request.method == 'POST':
+        serializer = ProvidenciaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()   #gaurdar la providencia
+            #TODO cambiar el estado al expediente
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
 
-#def crear_expediente():
+def crear_expediente(request):
+    if request.method == 'POST':
+        serializer = ExpedienteSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()   #gaurdar el expediente
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
 
-#def obtener_expediente():
+#UPDATE
+def update_estado_expediente(request, id):
+    try:
+        expediente = ExpedienteJuridico.objects.get(id=id)
+    except ObjectDoesNotExist as e:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        serializer = ExpedienteSerializer(expediente, data=request.data)
+        if serializer.is_valid():
+            serializer.save()   #gaurdar la opinion
+            return Response(serializer.data)
+        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
