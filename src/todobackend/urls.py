@@ -17,30 +17,28 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers, serializers, viewsets
-from judicial.models import AsesorJuridico
 from judicial import views
-class AsesorSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = AsesorJuridico
-        fields = ( 'nombre', 'key' )
 
-class AsesorViewSet(viewsets.ModelViewSet):
-    queryset = AsesorJuridico.objects.all()
-    serializer_class = AsesorSerializer
 
 #Rutas definidass
-router = routers.DefaultRouter()
-router.register(r'users', AsesorViewSet)
-#router.register(r'users/(?P<id>[0-9]+)/$', views.user_detail)
-#router.register(r'^users-view/$', views.snippet_list)
+#router = routers.SimpleRouter()
+#router.register(r'asesores-api', views.AsesorViewSet)
+#router.register(r'dictamen', views.dictamen_dado_expediente, base_name="dict")
+#router.register(r'asesores', views.asesores, base_name="ases")
 #asesor_view = AsesorViewSet.as_view({'get':'retrieve'})
 
 urlpatterns = [
-    url(r'^users-view/$', views.snippet_list),
-    url(r'^', include(router.urls)), #prueba de routers, contiene todas las rutas predefinidas
+    url(r'^users-view/$', views.asesores),
+    url(r'^dictamen/(?P<id>[0-9]+)/$', views.dictamen_dado_expediente),
+    url(r'^opinion/(?P<id>[0-9]+)/$', views.opinion_dado_expediente),
+    url(r'^expediente/(?P<id>[0-9]+)/$', views.obtener_expediente),
+    url(r'^crear-opinion/', views.crear_opinion),
+    url(r'^crear-dictamen/', views.crear_dictamen),
+    url(r'^emitir_providencia/', views.emitir_providencia),
+    url(r'^crear-expediente/', views.crear_expediente),
+    url(r'^actualizar-expediente/(?P<id>[0-9]+)/$', views.update_estado_expediente),
+
     url(r'^', include('todo.urls')),
-    #url(r'^api-auth/', AsesorViewSet),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^docs/', include('rest_framework_docs.urls')),
-
 ]
