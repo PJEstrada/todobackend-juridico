@@ -12,8 +12,10 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from judicial.models import *
 from judicial.serializer import *
+from rest_framework.decorators import api_view
 
 # cambio asd658886645455552aaa  cambio 589
+
 class JSONResponse(HttpResponse):
     """
     """
@@ -27,8 +29,7 @@ class JSONResponse(HttpResponse):
 #    serializer_class = AsesorSerializer
 
 #class AsesorViewSet2(viewsets.ModelViewSet):
-
-
+@api_view(['GET'])
 def asesores(request):
     if request.method == 'GET':
         snippets = AsesorJuridico.objects.all()
@@ -40,7 +41,9 @@ def asesores(request):
 #Demas funciones requeridas por el API SIT de microservicios
 #La verificacion se hara mediante comunicacion con el Subdominio Correspondiente!
 
+
 #READ
+@api_view(['GET'])
 def dictamen_dado_expediente(request, id):
     if request.method == 'GET':
         id_expediente = id
@@ -52,6 +55,7 @@ def dictamen_dado_expediente(request, id):
             #No existe el dictamen
             return JSONResponse([])
 
+@api_view(['GET'])
 def opinion_dado_expediente(request, id):
     if request.method == 'GET':
         id_expediente = id
@@ -63,6 +67,7 @@ def opinion_dado_expediente(request, id):
             #No existe el dictamen
             return JSONResponse([])
 
+@api_view(['GET'])
 def obtener_expediente(request, id):
     if request.method == 'GET':
         id_expediente = id
@@ -75,6 +80,7 @@ def obtener_expediente(request, id):
             return JSONResponse([])
 
 #CREATE
+@api_view(['POST'])
 def crear_opinion(request):
     if request.method == 'POST':
         serializer = OpinionSerializer(data=request.data)
@@ -83,6 +89,7 @@ def crear_opinion(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST'])
 def crear_dictamen(request):
     if request.method == 'POST':
         serializer = DictamenSerializer(data=request.data)
@@ -91,6 +98,7 @@ def crear_dictamen(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST'])
 def emitir_providencia():
     if request.method == 'POST':
         serializer = ProvidenciaSerializer(data=request.data)
@@ -100,6 +108,7 @@ def emitir_providencia():
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST'])
 def crear_expediente(request):
     if request.method == 'POST':
         serializer = ExpedienteSerializer(data=request.data)
@@ -109,6 +118,7 @@ def crear_expediente(request):
         return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
 
 #UPDATE
+@api_view(['PUT'])
 def update_estado_expediente(request, id):
     try:
         expediente = ExpedienteJuridico.objects.get(id=id)

@@ -17,8 +17,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers, serializers, viewsets
-from judicial import views
-
+from judicial import views as views
 
 #Rutas definidass
 #router = routers.SimpleRouter()
@@ -37,8 +36,8 @@ urlpatterns = [
     url(r'^emitir_providencia/', views.emitir_providencia),
     url(r'^crear-expediente/', views.crear_expediente),
     url(r'^actualizar-expediente/(?P<id>[0-9]+)/$', views.update_estado_expediente),
-
     url(r'^', include('todo.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^docs/', include('rest_framework_docs.urls')),
+
 ]
