@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'todo',
     'judicial',
+    'rest_framework_docs',
 ]
 
 MIDDLEWARE_CLASSES = [
