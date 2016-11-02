@@ -39,7 +39,7 @@ class Providencia(models.Model):
 
 	creacion = models.DateTimeField(auto_now_add=True)
 	#TODO el maldito usuarioooooooooooooooooooooooooooooooooooooooooooo
-	archivo = models.FileField()
+	archivo = models.FileField(blank=True)
 
 class Dictamen(models.Model):
 	expediente = models.ForeignKey(ExpedienteJuridico)
