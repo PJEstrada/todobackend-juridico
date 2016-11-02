@@ -22,7 +22,7 @@ class ExpedienteSerializer(serializers.ModelSerializer):
 class ProvidenciaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Providencia
-        fields = ('gerencia_destino', 'expediente', 'asuento', 'descripcion', 'creacion')
+        fields = ('gerencia_destino', 'expediente', 'asuento', 'descripcion', 'creacion', 'archivo') #TODO agregar el usuariooo
 
 class DictamenSerializer(serializers.ModelSerializer):
     class Meta:
