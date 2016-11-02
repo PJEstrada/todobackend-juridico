@@ -36,7 +36,10 @@ class Providencia(models.Model):
 	expediente = models.ForeignKey(ExpedienteJuridico)
 	asunto = models.CharField(max_length=50)
 	descripcion = models.CharField(max_length=50)
-	creacion = models.DateField()
+
+	creacion = models.DateTimeField(auto_now_add=True)
+	#TODO el maldito usuarioooooooooooooooooooooooooooooooooooooooooooo
+	archivo = models.FileField(blank=True)
 
 class Dictamen(models.Model):
 	expediente = models.ForeignKey(ExpedienteJuridico)
