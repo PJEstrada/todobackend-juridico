@@ -43,14 +43,14 @@ class Providencia(models.Model):
 
 class Dictamen(models.Model):
 	expediente = models.ForeignKey(ExpedienteJuridico)
-	fecha_emision = models.DateField()
+	fecha_emision = models.DateTimeField(auto_now_add=True)
 	asesor = models.ForeignKey(AsesorJuridico)
 	descripcion = models.CharField(max_length=50)
 	campo_procuraduria = models.CharField(max_length=50)
 
 class OpinionJuridica(models.Model):
 	expediente = models.ForeignKey(ExpedienteJuridico)
-	fecha_emision = models.DateField()
+	fecha_emision = models.DateTimeField(auto_now_add=True)
 	asesor = models.ForeignKey(AsesorJuridico)
 	descripcion = models.CharField(max_length=50)
 
