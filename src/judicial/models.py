@@ -10,9 +10,9 @@ class AsesorJuridico(AbstractUser):
 
 class Documento(models.Model):
 	nombre = models.CharField(max_length=50)
-	url = models.CharField(max_length=100)
-	fecha_creacion = models.DateField()
-	ultima_modificacion = models.DateField()
+	archivo = models.FileField(blank=True)
+	fecha_creacion = models.DateTimeField(auto_now_add=True)
+	ultima_modificacion = models.DateTimeField(auto_now_add=True)
 
 class EstadoExpediente(models.Model):
 	gerencia = models.CharField(max_length=50)

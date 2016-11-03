@@ -12,12 +12,12 @@ class AsesorSerializer(serializers.ModelSerializer):
 class DocumentoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Documento
-        fields = ('nombre','url', 'fecha_creacion', 'ultima_modificacion')
+        fields = ('nombre','archivo', 'fecha_creacion', 'ultima_modificacion')
 
 class ExpedienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExpedienteJuridico
-        fields = ('documentos', 'estado', 'numero', 'solicitante', 'key')
+        fields = ( 'estado', 'numero', 'solicitante', 'key')
 
 class ProvidenciaSerializer(serializers.ModelSerializer):
     class Meta:
