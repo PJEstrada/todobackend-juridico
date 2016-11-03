@@ -33,7 +33,7 @@ urlpatterns = [
     url(r'^expediente/(?P<id>[0-9]+)/$', views.obtener_expediente),
     url(r'^crear-opinion/', views.crear_opinion),
     url(r'^crear-dictamen/', views.crear_dictamen),
-    url(r'^emitir_providencia/', views.emitir_providencia),
+    url(r'^emitir-providencia/', views.emitir_providencia),
     url(r'^crear-expediente/', views.crear_expediente),
     url(r'^actualizar-expediente/(?P<id>[0-9]+)/$', views.update_estado_expediente),
     url(r'^', include('todo.urls')),

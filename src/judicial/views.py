@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser
+from rest_framework.parsers import JSONParser, FileUploadParser
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -15,6 +15,8 @@ from judicial.serializer import *
 from rest_framework.decorators import api_view
 
 # cambio asd658886645455552aaa  cambio 589
+
+parser_classes = (FileUploadParser,)
 
 class JSONResponse(HttpResponse):
     """
@@ -101,7 +103,7 @@ def crear_dictamen(request):
 @api_view(['POST'])
 def emitir_providencia():
     if request.method == 'POST':
-        serializer = ProvidenciaSerializer(data=request.data)
+        serializer = ProvidenciaSerializer(data=request.data) #
         if serializer.is_valid():
             serializer.save()   #gaurdar la providencia
             #TODO cambiar el estado al expediente
@@ -116,6 +118,8 @@ def crear_expediente(request):
             serializer.save()   #gaurdar el expediente
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 #UPDATE
 @api_view(['PUT'])
