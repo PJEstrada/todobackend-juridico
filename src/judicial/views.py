@@ -89,7 +89,7 @@ def crear_opinion(request):
         if serializer.is_valid():
             serializer.save()   #gaurdar la opinion
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def crear_dictamen(request):
@@ -98,7 +98,7 @@ def crear_dictamen(request):
         if serializer.is_valid():
             serializer.save()   #gaurdar el dicatamen
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 #-------------------------------------------------------------------------------
@@ -109,7 +109,7 @@ def crear_estado(request):
         if serializer.is_valid():
             serializer.save()   #gaurdar el dicatamen
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -119,9 +119,7 @@ def crear_usuario(request):
         if serializer.is_valid():
             serializer.save()   #gaurdar el dicatamen
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
-
-#-------------------------------------------------------------------------------
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def emitir_providencia(request):
@@ -131,7 +129,7 @@ def emitir_providencia(request):
             serializer.save()   #gaurdar la providencia
             #TODO cambiar el estado al expediente
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def crear_expediente(request):
@@ -140,7 +138,7 @@ def crear_expediente(request):
         if serializer.is_valid():
             serializer.save()   #gaurdar el expediente
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -153,8 +151,14 @@ def update_estado_expediente(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
+        if 'solicitante' not in request.data:
+            request.data['solicitante'] = expediente.solicitante.pk
+        if 'key' not in request.data:
+            request.data['key'] = expediente.key
+        if 'numero' not in request.data:
+            request.data['numero'] = expediente.numero
         serializer = ExpedienteSerializer(expediente, data=request.data)
         if serializer.is_valid():
             serializer.save()   #gaurdar la opinion
             return Response(serializer.data)
-        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
