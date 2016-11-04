@@ -33,3 +33,8 @@ class OpinionSerializer(serializers.ModelSerializer):
     class Meta:
         model = OpinionJuridica
         fields = ('expediente', 'fecha_emision', 'asesor', 'descripcion')
+
+class EstadoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EstadoExpediente
+        fields = ('gerencia', 'estado')

@@ -100,8 +100,31 @@ def crear_dictamen(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
 
+
+#-------------------------------------------------------------------------------
 @api_view(['POST'])
-def emitir_providencia():
+def crear_estado(request):
+    if request.method == 'POST':
+        serializer = EstadoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()   #gaurdar el dicatamen
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def crear_usuario(request):
+    if request.method == 'POST':
+        serializer = AsesorSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()   #gaurdar el dicatamen
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+
+#-------------------------------------------------------------------------------
+
+@api_view(['POST'])
+def emitir_providencia(request):
     if request.method == 'POST':
         serializer = ProvidenciaSerializer(data=request.data) #
         if serializer.is_valid():
