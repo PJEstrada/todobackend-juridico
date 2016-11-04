@@ -93,5 +93,6 @@ class TestJuridicoModulo(APITestCase):
     def test_crear_providencia_was_created(self):
         self.assertEqual(Providencia.objects.count(), 1)
 
+    # Put testing
     def test_actualizar_estado_expediente(self):
         self.assertEqual(self.expediente_actualizado.status_code, status.HTTP_200_OK)
