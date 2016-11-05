@@ -4,7 +4,8 @@ from django.db import models
 
 # Create your models here.2asdg
 
-class AsesorJuridico(AbstractUser):
+#class AsesorJuridico(AbstractUser):
+class AsesorJuridico(models.Model):
 	nombre = models.CharField(max_length=50)
 	key = models.CharField(max_length=50)
 

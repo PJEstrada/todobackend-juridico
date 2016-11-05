@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = "judicial.AsesorJuridico"
+#AUTH_USER_MODEL = "judicial.AsesorJuridico" #I had to erease this line because creating a new asesor judicial made me nuts
 # Application definition
 
 INSTALLED_APPS = [
