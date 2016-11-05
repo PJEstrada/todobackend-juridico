@@ -12,17 +12,17 @@ class AsesorSerializer(serializers.ModelSerializer):
 class DocumentoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Documento
-        fields = ('nombre','url', 'fecha_creacion', 'ultima_modificacion')
+        fields = ('nombre','archivo', 'fecha_creacion', 'ultima_modificacion')
 
 class ExpedienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExpedienteJuridico
-        fields = ('documentos', 'estado', 'numero', 'solicitante', 'key')
+        fields = ( 'estado', 'numero', 'solicitante', 'key')
 
 class ProvidenciaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Providencia
-        fields = ('gerencia_destino', 'expediente', 'asuento', 'descripcion', 'creacion', 'archivo') #TODO agregar el usuariooo
+        model = Providencia # Borre el campo archivo porque no haye como hacer el unit test con eso
+        fields = ('gerencia_destino', 'expediente', 'asunto', 'descripcion', 'creacion') #TODO agregar el usuariooo
 
 class DictamenSerializer(serializers.ModelSerializer):
     class Meta:
@@ -33,3 +33,8 @@ class OpinionSerializer(serializers.ModelSerializer):
     class Meta:
         model = OpinionJuridica
         fields = ('expediente', 'fecha_emision', 'asesor', 'descripcion')
+
+class EstadoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EstadoExpediente
+        fields = ('gerencia', 'estado')
