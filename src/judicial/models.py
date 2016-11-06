@@ -30,6 +30,7 @@ class ExpedienteJuridico(models.Model):
 	numero = models.IntegerField()
 	solicitante = models.ForeignKey(AsesorJuridico)
 	key = models.CharField(unique=True, max_length=100)
+	numero_instancia = models.IntegerField(null=True, blank=True)
 
 class Providencia(models.Model):
 	# La providencia contiene alguna otra informacion?
@@ -41,6 +42,7 @@ class Providencia(models.Model):
 	creacion = models.DateTimeField(auto_now_add=True)
 	#TODO el maldito usuarioooooooooooooooooooooooooooooooooooooooooooo
 	archivo = models.FileField(blank=True)
+	numero_instancia = models.IntegerField(null=True, blank=True)
 
 class Dictamen(models.Model):
 	expediente = models.ForeignKey(ExpedienteJuridico)
@@ -48,12 +50,14 @@ class Dictamen(models.Model):
 	asesor = models.ForeignKey(AsesorJuridico)
 	descripcion = models.CharField(max_length=50)
 	campo_procuraduria = models.CharField(max_length=50)
+	numero_instancia = models.IntegerField(null=True, blank=True)
 
 class OpinionJuridica(models.Model):
 	expediente = models.ForeignKey(ExpedienteJuridico)
 	fecha_emision = models.DateTimeField(auto_now_add=True)
 	asesor = models.ForeignKey(AsesorJuridico)
 	descripcion = models.CharField(max_length=50)
+	numero_instancia = models.IntegerField(null=True, blank=True)
 
 
 # mi comment

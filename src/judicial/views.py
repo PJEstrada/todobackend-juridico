@@ -87,7 +87,9 @@ def crear_opinion(request):
     if request.method == 'POST':
         serializer = OpinionSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()   #gaurdar la opinion
+            instance = serializer.save()   #gaurdar la opinion
+            instance.numero_instancia = instance.pk
+            instance.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -96,7 +98,9 @@ def crear_dictamen(request):
     if request.method == 'POST':
         serializer = DictamenSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()   #gaurdar el dicatamen
+            instance = serializer.save()   #gaurdar el dictamen
+            instance.numero_instancia = instance.pk
+            instance.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -126,7 +130,9 @@ def emitir_providencia(request):
     if request.method == 'POST':
         serializer = ProvidenciaSerializer(data=request.data) #
         if serializer.is_valid():
-            serializer.save()   #gaurdar la providencia
+            instance = serializer.save()   #gaurdar la providencia
+            instance.numero_instancia = instance.pk
+            instance.save()
             #TODO cambiar el estado al expediente
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -136,7 +142,9 @@ def crear_expediente(request):
     if request.method == 'POST':
         serializer = ExpedienteSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()   #gaurdar el expediente
+            instance = serializer.save()   #gaurdar el expediente
+            instance.numero_instancia = instance.pk
+            instance.save()
             statsd.incr('expedientes_sit.creados')
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         print serializer.errors
