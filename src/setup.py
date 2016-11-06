@@ -13,7 +13,8 @@ setup (
 		"djangorestframework>=3.3.0",
 		"MySQL-python>=1.2.5",
 		"uwsgi>=2.0",
-		"drfdocs"
+		"drfdocs",
+		"django-statsd-mozilla"
 	],
 	extras_require = {
 		"test": [

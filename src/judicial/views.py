@@ -6,7 +6,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser, FileUploadParser
 from rest_framework.response import Response
 from rest_framework import status
-
+from django_statsd.clients import statsd
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
@@ -137,6 +137,7 @@ def crear_expediente(request):
         serializer = ExpedienteSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()   #gaurdar el expediente
+            statsd.incr('expedientes_sit.creados')
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         print serializer.errors
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
