@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-# Create your models here.
+# Create your models here. #Test
 class TodoItem(models.Model):
 	title = models.CharField(max_length=256, null=True, blank=True)
 	completed = models.BooleanField(blank=True, default=False)

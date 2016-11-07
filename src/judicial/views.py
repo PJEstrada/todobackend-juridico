@@ -6,7 +6,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser, FileUploadParser
 from rest_framework.response import Response
 from rest_framework import status
-
+from django_statsd.clients import statsd
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
@@ -87,37 +87,67 @@ def crear_opinion(request):
     if request.method == 'POST':
         serializer = OpinionSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()   #gaurdar la opinion
+            instance = serializer.save()   #gaurdar la opinion
+            instance.numero_instancia = instance.pk
+            instance.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def crear_dictamen(request):
     if request.method == 'POST':
         serializer = DictamenSerializer(data=request.data)
         if serializer.is_valid():
+            instance = serializer.save()   #gaurdar el dictamen
+            instance.numero_instancia = instance.pk
+            instance.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+#-------------------------------------------------------------------------------
+@api_view(['POST'])
+def crear_estado(request):
+    if request.method == 'POST':
+        serializer = EstadoSerializer(data=request.data)
+        if serializer.is_valid():
             serializer.save()   #gaurdar el dicatamen
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['POST'])
-def emitir_providencia():
+def crear_usuario(request):
+    if request.method == 'POST':
+        serializer = AsesorSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()   #gaurdar el dicatamen
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def emitir_providencia(request):
     if request.method == 'POST':
         serializer = ProvidenciaSerializer(data=request.data) #
         if serializer.is_valid():
-            serializer.save()   #gaurdar la providencia
+            instance = serializer.save()   #gaurdar la providencia
+            instance.numero_instancia = instance.pk
+            instance.save()
             #TODO cambiar el estado al expediente
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def crear_expediente(request):
     if request.method == 'POST':
         serializer = ExpedienteSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()   #gaurdar el expediente
+            instance = serializer.save()   #gaurdar el expediente
+            instance.numero_instancia = instance.pk
+            instance.save()
+            statsd.incr('expedientes_sit.creados')
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -130,8 +160,14 @@ def update_estado_expediente(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
+        if 'solicitante' not in request.data:
+            request.data['solicitante'] = expediente.solicitante.pk
+        if 'key' not in request.data:
+            request.data['key'] = expediente.key
+        if 'numero' not in request.data:
+            request.data['numero'] = expediente.numero
         serializer = ExpedienteSerializer(expediente, data=request.data)
         if serializer.is_valid():
             serializer.save()   #gaurdar la opinion
             return Response(serializer.data)
-        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
