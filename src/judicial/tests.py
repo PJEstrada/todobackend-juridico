@@ -117,8 +117,18 @@ class TestJuridicoModulo(APITestCase):
     def test_crear_providencia_was_created(self):
         self.assertEqual(Providencia.objects.count(), 1)
 
+    # Dado expediente
+    def test_obtener_providencia(self):
+        self.providencia_obtenido = self.client.get('/providencia/1',format='json',follow=True)
+        self.assertEqual(self.providencia_obtenido.status_code, status.HTTP_200_OK)
+
     def test_providencia_dictamen_400_bad_status_code(self):
         self.assertEqual(self.providencia_creado_bad.status_code, status.HTTP_400_BAD_REQUEST)
+
+    # States
+    def test_estados_obtener(self):
+        self.estados_obtenido = self.client.get('/estados/',format='json', follow=True)
+        self.assertEqual(self.estados_obtenido.status_code, status.HTTP_200_OK)
 
     # Put testing
     def test_actualizar_estado_expediente(self):

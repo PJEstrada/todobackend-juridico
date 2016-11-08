@@ -6,7 +6,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser, FileUploadParser
 from rest_framework.response import Response
 from rest_framework import status
-from django_statsd.clients import statsd
+#from django_statsd.clients import statsd
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
@@ -43,6 +43,12 @@ def asesores(request):
 #Demas funciones requeridas por el API SIT de microservicios
 #La verificacion se hara mediante comunicacion con el Subdominio Correspondiente!
 
+@api_view(['GET'])
+def estados(request):
+    if request.method == 'GET':
+        estados = EstadoExpediente.objects.all()
+        serializer = EstadoSerializer(estados, many=True)
+        return JSONResponse(serializer.data)
 
 #READ
 @api_view(['GET'])
@@ -67,6 +73,18 @@ def opinion_dado_expediente(request, id):
             return JSONResponse(serializer.data)
         except ObjectDoesNotExist as e:
             #No existe el dictamen
+            return JSONResponse([])
+
+@api_view(['GET'])
+def providencia_dado_expediente(request, id):
+    if request.method == 'GET':
+        id_expediente = id
+        try:
+            providencia = Providencia.objects.get(expediente_id=id_expediente)
+            serializer = ProvidenciaSerializer(providencia, many=False)
+            return JSONResponse(serializer.data)
+        except ObjectDoesNotExist as e:
+            #No existe la providencia
             return JSONResponse([])
 
 @api_view(['GET'])
@@ -145,7 +163,7 @@ def crear_expediente(request):
             instance = serializer.save()   #gaurdar el expediente
             instance.numero_instancia = instance.pk
             instance.save()
-            statsd.incr('expedientes_sit.creados')
+            #statsd.incr('expedientes_sit.creados')
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
