@@ -29,11 +29,11 @@ ALLOWED_HOSTS = []
 
 #AUTH_USER_MODEL = "judicial.AsesorJuridico" #I had to erease this line because creating a new asesor judicial made me nuts
 # Application definition
-#STATSD_CLIENT = 'django_statsd.clients.normal'
-#STATSD_PATCHES = [
-#        'django_statsd.patches.db',
-#        'django_statsd.patches.cache',
-#]
+STATSD_CLIENT = 'django_statsd.clients.normal'
+STATSD_PATCHES = [
+        'django_statsd.patches.db',
+        'django_statsd.patches.cache',
+]
 STATSD_HOST = 'localhost'
 STATSD_PORT = 9125
 INSTALLED_APPS = [
@@ -48,13 +48,13 @@ INSTALLED_APPS = [
     'todo',
     'judicial',
     'rest_framework_docs',
-#    'django_statsd',
+    'django_statsd',
 ]
 
 STATSD_MODEL_SIGNALS = True
 MIDDLEWARE_CLASSES = [
-#    'django_statsd.middleware.GraphiteRequestTimingMiddleware',
-#    'django_statsd.middleware.GraphiteMiddleware',
+    'django_statsd.middleware.GraphiteRequestTimingMiddleware',
+    'django_statsd.middleware.GraphiteMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
