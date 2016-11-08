@@ -33,10 +33,11 @@ urlpatterns = [
     url(r'^opinion/(?P<id>[0-9]+)/$', views.opinion_dado_expediente),
     url(r'^providencia/(?P<id>[0-9]+)/$', views.providencia_dado_expediente),
     url(r'^expediente/(?P<id>[0-9]+)/$', views.obtener_expediente),
+    url(r'^expedientes-asesor/(?P<id>[0-9]+)/$', views.expedientes_dado_asesor),
     url(r'^crear-opinion/', views.crear_opinion),
     url(r'^crear-dictamen/', views.crear_dictamen),
     url(r'^emitir-providencia/', views.emitir_providencia),
-    url(r'^crear-expediente/', views.crear_expediente),
+    url(r'^crear-expediente/', views.crear_expediente), #Eliminar
     url(r'^crear-estado/', views.crear_estado), #Eliminar
     url(r'^crear-usuario/', views.crear_usuario), #Eliminar
     url(r'^actualizar-expediente/(?P<id>[0-9]+)/$', views.update_estado_expediente),

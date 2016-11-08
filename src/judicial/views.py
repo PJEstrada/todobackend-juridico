@@ -13,6 +13,7 @@ from rest_framework.parsers import JSONParser
 from judicial.models import *
 from judicial.serializer import *
 from rest_framework.decorators import api_view
+from django.core.exceptions import MultipleObjectsReturned
 
 # cambio asd658886645455552aaa  cambio 589
 
@@ -99,6 +100,17 @@ def obtener_expediente(request, id):
             #No existe el dictamen
             return JSONResponse([])
 
+@api_view(['GET'])
+def expedientes_dado_asesor(request,id):
+    if request.method == 'GET':
+        id_asesor = id
+        try:
+            expedientes = ExpedienteJuridico.objects.filter(solicitante=id_asesor)
+            serializer = ExpedienteSerializer(expedientes, many=True)
+            return JSONResponse(serializer.data)
+        except ObjectDoesNotExist as e:
+            #No hay
+            return JSONResponse([])
 #CREATE
 @api_view(['POST'])
 def crear_opinion(request):

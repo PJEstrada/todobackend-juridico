@@ -130,6 +130,12 @@ class TestJuridicoModulo(APITestCase):
         self.estados_obtenido = self.client.get('/estados/',format='json', follow=True)
         self.assertEqual(self.estados_obtenido.status_code, status.HTTP_200_OK)
 
+    # Expedientes de asesor
+    # States
+    def test_expedientes_asesor_obtener(self):
+        self.estados_obtenido = self.client.get('/expedientes-asesor/1',format='json', follow=True)
+        self.assertEqual(self.estados_obtenido.status_code, status.HTTP_200_OK)
+
     # Put testing
     def test_actualizar_estado_expediente(self):
         self.assertEqual(self.expediente_actualizado.status_code, status.HTTP_200_OK)
