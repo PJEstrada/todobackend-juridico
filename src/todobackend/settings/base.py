@@ -25,7 +25,7 @@ SECRET_KEY = '_lwzj-ta856wrc-#(f@+va9+!rkp_5@tt0#4hamyih5&y5&cd8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 #AUTH_USER_MODEL = "judicial.AsesorJuridico" #I had to erease this line because creating a new asesor judicial made me nuts
 # Application definition
