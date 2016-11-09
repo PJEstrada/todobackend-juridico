@@ -182,7 +182,7 @@ def crear_expediente(request):
 
 
 #UPDATE
-@api_view(['PUT'])
+@api_view(['PUT','POST','GET'])
 def update_estado_expediente(request, id):
     try:
         expediente = ExpedienteJuridico.objects.get(id=id)
