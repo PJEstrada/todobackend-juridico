@@ -39,7 +39,7 @@ def asesores(request):
         serializer = AsesorSerializer(snippets, many=True)
         return JSONResponse(serializer.data)
 
-
+# gerencia
 @api_view(['POST'])
 def crear_gerencia(request):
     if request.method == 'POST':
