@@ -8,7 +8,7 @@ else:
 
 
 ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS', '*')]
-# ALLOWED_HOSTS = ['*']
+
 DATABASES = {
 	'default':{
 		'ENGINE': 'django.db.backends.mysql',

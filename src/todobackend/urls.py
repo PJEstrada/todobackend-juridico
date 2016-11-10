@@ -28,21 +28,15 @@ from judicial import views as views
 
 urlpatterns = [
     url(r'^users-view/$', views.asesores),
-    url(r'^estados/$', views.estados),
     url(r'^dictamen/(?P<id>[0-9]+)/$', views.dictamen_dado_expediente),
     url(r'^opinion/(?P<id>[0-9]+)/$', views.opinion_dado_expediente),
-    url(r'^providencia/(?P<id>[0-9]+)/$', views.providencia_dado_expediente),
     url(r'^expediente/(?P<id>[0-9]+)/$', views.obtener_expediente),
-    url(r'^expedientes-asesor/(?P<id>[0-9]+)/$', views.expedientes_dado_asesor),
     url(r'^crear-opinion/', views.crear_opinion),
     url(r'^crear-dictamen/', views.crear_dictamen),
     url(r'^emitir-providencia/', views.emitir_providencia),
-    url(r'^crear-expediente/', views.crear_expediente), #Eliminar
-    url(r'^crear-gerencia/', views.crear_gerencia), #Eliminar
-    url(r'^crear-estado/', views.crear_estado), #Eliminar
-    url(r'^crear-usuario/', views.crear_usuario), #Eliminar
+    url(r'^crear-expediente/', views.crear_expediente),
     url(r'^actualizar-expediente/(?P<id>[0-9]+)/$', views.update_estado_expediente),
-    #   url(r'^', include('todo.urls')),
+    url(r'^', include('todo.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^docs/', include('rest_framework_docs.urls')),
 

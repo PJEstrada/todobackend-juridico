@@ -15,8 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-#CORS_ORIGIN_ALLOW_ALL = True
-#CORS_ALLOW_CREDENTIALS = False
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
@@ -26,17 +25,11 @@ SECRET_KEY = '_lwzj-ta856wrc-#(f@+va9+!rkp_5@tt0#4hamyih5&y5&cd8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
-#AUTH_USER_MODEL = "judicial.AsesorJuridico" #I had to erease this line because creating a new asesor judicial made me nuts
+AUTH_USER_MODEL = "judicial.AsesorJuridico"
 # Application definition
-#STATSD_CLIENT = 'django_statsd.clients.normal'
-#STATSD_PATCHES = [
-#        'django_statsd.patches.db',
-#        'django_statsd.patches.cache',
-#]
-STATSD_HOST = 'localhost'
-STATSD_PORT = 9125
+
 INSTALLED_APPS = [
     #'django.contrib.admin',
     'django.contrib.auth',
@@ -49,13 +42,9 @@ INSTALLED_APPS = [
     'todo',
     'judicial',
     'rest_framework_docs',
-#    'django_statsd',
 ]
 
-STATSD_MODEL_SIGNALS = True
 MIDDLEWARE_CLASSES = [
-#    'django_statsd.middleware.GraphiteRequestTimingMiddleware',
-#    'django_statsd.middleware.GraphiteMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
