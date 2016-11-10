@@ -163,3 +163,32 @@ def update_estado_expediente(request, id):
             serializer.save()   #gaurdar la opinion
             return Response(serializer.data)
         return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+
+# gerencia2
+@api_view(['POST'])
+def crear_gerencia(request):
+    if request.method == 'POST':
+        serializer = GerenciaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()   #gaurdar la gerencia
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def crear_estado(request):
+    if request.method == 'POST':
+        serializer = EstadoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()   #gaurdar el dicatamen
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def crear_usuario(request):
+    if request.method == 'POST':
+        serializer = AsesorSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()   #gaurdar el dicatamen
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
