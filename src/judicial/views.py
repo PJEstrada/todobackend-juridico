@@ -40,6 +40,14 @@ def asesores(request):
         return JSONResponse(serializer.data)
 
 
+@api_view(['POST'])
+def crear_usuario(request):
+    if request.method == 'POST':
+        serializer = GerenciaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()   #gaurdar la gerencia
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 #TODO
 #Demas funciones requeridas por el API SIT de microservicios
 #La verificacion se hara mediante comunicacion con el Subdominio Correspondiente!

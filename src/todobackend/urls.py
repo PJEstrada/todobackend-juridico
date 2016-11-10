@@ -38,6 +38,7 @@ urlpatterns = [
     url(r'^crear-dictamen/', views.crear_dictamen),
     url(r'^emitir-providencia/', views.emitir_providencia),
     url(r'^crear-expediente/', views.crear_expediente), #Eliminar
+    url(r'^crear-gerencia/', views.crear_gerencia), #Eliminar
     url(r'^crear-estado/', views.crear_estado), #Eliminar
     url(r'^crear-usuario/', views.crear_usuario), #Eliminar
     url(r'^actualizar-expediente/(?P<id>[0-9]+)/$', views.update_estado_expediente),

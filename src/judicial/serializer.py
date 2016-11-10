@@ -38,3 +38,8 @@ class EstadoSerializer(serializers.ModelSerializer):
     class Meta:
         model = EstadoExpediente
         fields = ('gerencia', 'estado')
+
+class GerenciaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Gerencia
+        fields = ('nombre', 'descripcion')
