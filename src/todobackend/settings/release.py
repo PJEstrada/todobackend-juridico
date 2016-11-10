@@ -7,7 +7,7 @@ else:
 	DEBUG = False
 
 
-ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS', '*')]
+ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS', '*'),'localhost:3000','localhost:3001','localhost:8000']
 
 DATABASES = {
 	'default':{
