@@ -41,7 +41,7 @@ def asesores(request):
 
 
 @api_view(['POST'])
-def crear_usuario(request):
+def crear_gerencia(request):
     if request.method == 'POST':
         serializer = GerenciaSerializer(data=request.data)
         if serializer.is_valid():
