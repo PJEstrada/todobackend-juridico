@@ -42,7 +42,12 @@ def asesores(request):
 #TODO
 #Demas funciones requeridas por el API SIT de microservicios
 #La verificacion se hara mediante comunicacion con el Subdominio Correspondiente!
-
+@api_view(['GET'])
+def estados(request):
+    if request.method == 'GET':
+        estados = EstadoExpediente.objects.all()
+        serializer = EstadoSerializer(estados, many=True)
+        return JSONResponse(serializer.data)
 
 #READ
 @api_view(['GET'])
@@ -81,6 +86,17 @@ def obtener_expediente(request, id):
             #No existe el dictamen
             return JSONResponse([])
 
+@api_view(['GET'])
+def providencia_dado_expediente(request, id):
+    if request.method == 'GET':
+        id_expediente = id
+        try:
+            providencia = Providencia.objects.get(expediente_id=id_expediente)
+            serializer = ProvidenciaSerializer(providencia, many=False)
+            return JSONResponse(serializer.data)
+        except ObjectDoesNotExist as e:
+            #No existe la providencia
+            return JSONResponse([])
 #CREATE
 @api_view(['POST'])
 def crear_opinion(request):
@@ -90,6 +106,18 @@ def crear_opinion(request):
             serializer.save()   #gaurdar la opinion
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def expedientes_dado_asesor(request,id):
+    if request.method == 'GET':
+        id_asesor = id
+        try:
+            expedientes = ExpedienteJuridico.objects.filter(solicitante=id_asesor)
+            serializer = ExpedienteSerializer(expedientes, many=True)
+            return JSONResponse(serializer.data)
+        except ObjectDoesNotExist as e:
+            #No hay
+            return JSONResponse([])
 
 @api_view(['POST'])
 def crear_dictamen(request):

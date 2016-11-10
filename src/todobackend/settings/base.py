@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = "judicial.AsesorJuridico"
+# AUTH_USER_MODEL = "judicial.AsesorJuridico"
 # Application definition
 
 INSTALLED_APPS = [
