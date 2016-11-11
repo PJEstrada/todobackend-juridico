@@ -103,8 +103,8 @@ def obtener_expediente(request, id):
     if request.method == 'GET':
         id_expediente = id
         try:
-            opinion = ExpedienteJuridico.objects.get(id=id_expediente)
-            serializer = ExpedienteSerializer(opinion, many=False)
+            expediente = ExpedienteJuridico.objects.get(pk=id_expediente)
+            serializer = ExpedienteSerializer(expediente, many=False)
             return JSONResponse(serializer.data)
         except ObjectDoesNotExist as e:
             #No existe el dictamen
