@@ -4,7 +4,7 @@ import os
 if os.environ.get('DEBUG'):
 	DEBUG = True
 else:
-	DEBUG = False
+	DEBUG = True
 
 
 ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS', '*'),'localhost:3000','localhost:3001','localhost:8000']
