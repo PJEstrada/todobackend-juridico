@@ -137,8 +137,3 @@ STATIC_URL = '/static/'
 
 # CORS Settings
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = (
-    'localhost:3000',
-    'localhost:3001',
-    'localhost:8000',
-)
