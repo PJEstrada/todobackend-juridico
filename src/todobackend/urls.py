@@ -43,7 +43,7 @@ urlpatterns = [
     url(r'^crear-estado/', views.crear_estado), #Eliminar
     url(r'^crear-usuario/', views.crear_usuario), #Eliminar
     url(r'^actualizar-expediente/(?P<id>[0-9]+)/$', views.update_estado_expediente),
-    #url(r'^', include('todo.urls')),
+    url(r'^', include('todo.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^docs/', include('rest_framework_docs.urls')),
 
