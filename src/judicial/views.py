@@ -45,7 +45,9 @@ def crear_gerencia(request):
     if request.method == 'POST':
         serializer = GerenciaSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()   #gaurdar la gerencia
+            instance = serializer.save()   #gaurdar la gerencia
+            instance.numero_instancia = instance.pk
+            instance.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 #TODO
@@ -149,7 +151,9 @@ def crear_estado(request):
     if request.method == 'POST':
         serializer = EstadoSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()   #gaurdar el dicatamen
+            instance = serializer.save()   #gaurdar el estado
+            instance.numero_instancia = instance.pk
+            instance.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -159,7 +163,9 @@ def crear_usuario(request):
     if request.method == 'POST':
         serializer = AsesorSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()   #gaurdar el dicatamen
+            instance = serializer.save()   #gaurdar el usuario
+            instance.numero_instancia = instance.pk
+            instance.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

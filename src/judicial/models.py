@@ -8,6 +8,7 @@ from django.db import models
 class AsesorJuridico(models.Model):
 	nombre = models.CharField(max_length=50)
 	key = models.CharField(max_length=50)
+	numero_instancia = models.IntegerField(null=True, blank=True)
 
 class Documento(models.Model):
 	nombre = models.CharField(max_length=50)
@@ -18,11 +19,12 @@ class Documento(models.Model):
 class EstadoExpediente(models.Model):
 	gerencia = models.CharField(max_length=50)
 	estado = models.CharField(max_length=50)
-
+	numero_instancia = models.IntegerField(null=True, blank=True)
 
 class Gerencia(models.Model):
 	nombre = models.CharField(max_length=50)
 	descripcion = models.CharField(max_length=50)
+	numero_instancia = models.IntegerField(null=True, blank=True)
 
 class Expediente(models.Model):
 	descripcion = models.TextField(blank=True)
