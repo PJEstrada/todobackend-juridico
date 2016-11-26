@@ -7,7 +7,7 @@ from rest_framework.renderers import JSONRenderer
 class AsesorSerializer(serializers.ModelSerializer):
     class Meta:
         model = AsesorJuridico
-        fields = ( 'nombre', 'key' )
+        fields = ( 'nombre', 'key', 'numero_instancia')
 
 class DocumentoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,4 +37,9 @@ class OpinionSerializer(serializers.ModelSerializer):
 class EstadoSerializer(serializers.ModelSerializer):
     class Meta:
         model = EstadoExpediente
-        fields = ('gerencia', 'estado')
+        fields = ('gerencia', 'estado', 'numero_instancia')
+
+class GerenciaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Gerencia
+        fields = ('nombre', 'descripcion', 'numero_instancia')

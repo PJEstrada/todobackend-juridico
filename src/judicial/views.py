@@ -14,8 +14,11 @@ from judicial.models import *
 from judicial.serializer import *
 from rest_framework.decorators import api_view
 from django.core.exceptions import MultipleObjectsReturned
+<<<<<<< HEAD
 import requests
 import json
+=======
+>>>>>>> 8a20665e109348968eb9f92831e9221cad917bf4
 
 # cambio asd658886645455552aaa  cambio 589
 
@@ -118,6 +121,7 @@ def obtener_expediente(request, id):
             expediente_local.descripcion = str(expediente_encontrado)
             expediente_local.save()
             expediente = ExpedienteJuridico.objects.get(expediente=id_expediente)
+
             serializer = ExpedienteSerializer(expediente, many=False)
             return JSONResponse(serializer.data)
         except ObjectDoesNotExist as e:
