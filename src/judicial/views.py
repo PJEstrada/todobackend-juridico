@@ -227,7 +227,7 @@ def update_estado_expediente(request, id):
         id_expediente_original = ExpedienteJuridico.expediente
         # En teoria ya deberian existir la providencia, opinion y dictamen
         providencia_relacionada = Providencia.objects.get(expediente=expediente.pk)
-        opinion_relacionada = Opinion.objects.get(expediente=expediente.pk)
+        opinion_relacionada = OpinionJuridica.objects.get(expediente=expediente.pk)
         dictamen_relacionada = Dictamen.objects.get(expediente=expediente.pk)
         dictionario_retorno = {'providencia_texto': providencia_relacionada.descripcion, 'opinion_texto': opinion_relacionada.descripcion,
                                 'dictamen_texto': dictamen_relacionada.descripcion}
