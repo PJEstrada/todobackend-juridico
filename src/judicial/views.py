@@ -14,11 +14,9 @@ from judicial.models import *
 from judicial.serializer import *
 from rest_framework.decorators import api_view
 from django.core.exceptions import MultipleObjectsReturned
-<<<<<<< HEAD
 import requests
 import json
-=======
->>>>>>> 8a20665e109348968eb9f92831e9221cad917bf4
+
 
 # cambio asd658886645455552aaa  cambio 589
 
