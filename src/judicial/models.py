@@ -8,6 +8,7 @@ from django.db import models
 class AsesorJuridico(models.Model):
 	nombre = models.CharField(max_length=50)
 	key = models.CharField(max_length=50)
+	numero_instancia = models.IntegerField(null=True, blank=True)
 
 class Documento(models.Model):
 	nombre = models.CharField(max_length=50)
@@ -18,10 +19,15 @@ class Documento(models.Model):
 class EstadoExpediente(models.Model):
 	gerencia = models.CharField(max_length=50)
 	estado = models.CharField(max_length=50)
+	numero_instancia = models.IntegerField(null=True, blank=True)
 
 class Gerencia(models.Model):
 	nombre = models.CharField(max_length=50)
 	descripcion = models.CharField(max_length=50)
+	numero_instancia = models.IntegerField(null=True, blank=True)
+
+class Expediente(models.Model):
+	descripcion = models.TextField(blank=True)
 
 class ExpedienteJuridico(models.Model):
 	# Alguna otra informacion relevante al contexto juridico ?
@@ -31,6 +37,7 @@ class ExpedienteJuridico(models.Model):
 	solicitante = models.ForeignKey(AsesorJuridico)
 	key = models.CharField(unique=True, max_length=100)
 	numero_instancia = models.IntegerField(null=True, blank=True)
+	expediente = models.ForeignKey(Expediente, null=True)
 
 class Providencia(models.Model):
 	# La providencia contiene alguna otra informacion?
@@ -41,7 +48,7 @@ class Providencia(models.Model):
 
 	creacion = models.DateTimeField(auto_now_add=True)
 	#TODO el maldito usuarioooooooooooooooooooooooooooooooooooooooooooo
-	archivo = models.FileField(blank=True)
+	archivo = models.FileField(blank=True, upload_to="documents/")
 	numero_instancia = models.IntegerField(null=True, blank=True)
 
 class Dictamen(models.Model):
@@ -50,6 +57,7 @@ class Dictamen(models.Model):
 	asesor = models.ForeignKey(AsesorJuridico)
 	descripcion = models.CharField(max_length=50)
 	campo_procuraduria = models.CharField(max_length=50)
+	archivo = models.FileField(blank=True, upload_to="documents/")
 	numero_instancia = models.IntegerField(null=True, blank=True)
 
 class OpinionJuridica(models.Model):
@@ -57,6 +65,7 @@ class OpinionJuridica(models.Model):
 	fecha_emision = models.DateTimeField(auto_now_add=True)
 	asesor = models.ForeignKey(AsesorJuridico)
 	descripcion = models.CharField(max_length=50)
+	archivo = models.FileField(blank=True)
 	numero_instancia = models.IntegerField(null=True, blank=True)
 
 
