@@ -14,8 +14,8 @@ from judicial.models import *
 from judicial.serializer import *
 from rest_framework.decorators import api_view
 from django.core.exceptions import MultipleObjectsReturned
-import requests
-import json
+#import requests
+#import json
 
 
 # cambio asd658886645455552aaa  cambio 589
@@ -106,20 +106,20 @@ def obtener_expediente(request, id):
     if request.method == 'GET':
         id_expediente = id
         # Cargar expedientes de otro servicio
-        expediente_servicio = requests.post('http://52.86.239.149/users/expediente_view',
-                                    data=json.dumps({'correlativo': id_expediente})).json()
-        expediente_encontrado = None;
-        try:
-            expediente_encontrado = expediente_servicio["Expediente"]
-        except KeyError as error:
+        #expediente_servicio = requests.post('http://52.86.239.149/users/expediente_view',
+        #                            data=json.dumps({'correlativo': id_expediente})).json()
+        #expediente_encontrado = None;
+        #try:
+        #    expediente_encontrado = expediente_servicio["Expediente"]
+        #except KeyError as error:
             # Si por alguna razon no lo encuentra devuelve vacio
-            return JSONResponse([])
+        #    return JSONResponse([])
         try:
-            expediente_local = Expediente.objects.get(pk = int(expediente_encontrado["correlativo"]))
-            expediente_local.descripcion = str(expediente_encontrado)
-            expediente_local.save()
-            expediente = ExpedienteJuridico.objects.get(expediente=id_expediente)
-
+        #    expediente_local = Expediente.objects.get(pk = int(expediente_encontrado["correlativo"]))
+        #    expediente_local.descripcion = str(expediente_encontrado)
+        #    expediente_local.save()
+        #    expediente = ExpedienteJuridico.objects.get(expediente=id_expediente)
+            expediente = ExpedienteJuridico.objects.get(pk=id_expediente)
             serializer = ExpedienteSerializer(expediente, many=False)
             return JSONResponse(serializer.data)
         except ObjectDoesNotExist as e:
@@ -223,20 +223,20 @@ def update_estado_expediente(request, id):
 
     if request.method == 'PUT':
         # Se obtiene el id del asesor que hace todo el tramite
-        id_asesor = ExpedienteJuridico.solicitante
-        id_expediente_original = ExpedienteJuridico.expediente
+        #id_asesor = ExpedienteJuridico.solicitante
+        #id_expediente_original = ExpedienteJuridico.expediente
         # En teoria ya deberian existir la providencia, opinion y dictamen
-        providencia_relacionada = Providencia.objects.get(expediente=expediente.pk)
-        opinion_relacionada = OpinionJuridica.objects.get(expediente=expediente.pk)
-        dictamen_relacionada = Dictamen.objects.get(expediente=expediente.pk)
-        dictionario_retorno = {'providencia_texto': providencia_relacionada.descripcion, 'opinion_texto': opinion_relacionada.descripcion,
-                                'dictamen_texto': dictamen_relacionada.descripcion}
-        dictionario_string_retorno = str(dictionario_retorno)
+        #providencia_relacionada = Providencia.objects.get(expediente=expediente.pk)
+        #opinion_relacionada = OpinionJuridica.objects.get(expediente=expediente.pk)
+        #dictamen_relacionada = Dictamen.objects.get(expediente=expediente.pk)
+        #dictionario_retorno = {'providencia_texto': providencia_relacionada.descripcion, 'opinion_texto': opinion_relacionada.descripcion,
+        #                        'dictamen_texto': dictamen_relacionada.descripcion}
+        #dictionario_string_retorno = str(dictionario_retorno)
 
-        creacion_acta = requests.post('http://52.86.239.149/users/acta_new',
-                                    data=json.dumps({'id_expediente': id_expediente_original, "asunto": "Revision juridica", "firma": "AsesorJuridico"+str(id_asesor)})).json()
-        actualizacion_datos = requests.post('http://52.86.239.149/users/expediente_edit',
-                                data=json.dumps({"documentos":dictionario_string_retorno})).json()
+        #creacion_acta = requests.post('http://52.86.239.149/users/acta_new',
+        #                            data=json.dumps({'id_expediente': id_expediente_original, "asunto": "Revision juridica", "firma": "AsesorJuridico"+str(id_asesor)})).json()
+        #actualizacion_datos = requests.post('http://52.86.239.149/users/expediente_edit',
+        #                        data=json.dumps({"documentos":dictionario_string_retorno})).json()
         # Se le pega al endopoint de neto para actualizar su log
         if 'solicitante' not in request.data:
             request.data['solicitante'] = expediente.solicitante.pk
